@@ -1,19 +1,20 @@
 export type User = {
-  id: string;
+  id: number;
+  username: string;
   email: string;
 };
 
-export type AuthResponse = {
-  token: string;
-  user: User;
+export type AuthResponse = User & {
+  accessToken: string;
 };
 
 export type Cycle = {
-  id: string;
+  id: number;
+  userId: number;
   startDate: string;
-  endDate?: string;
+  endDate: string | null;
   cycleDay: number;
-  isActive: boolean;
+  active: boolean;
 };
 
 export type MedicationStatus = {
