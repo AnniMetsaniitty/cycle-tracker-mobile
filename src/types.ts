@@ -13,13 +13,15 @@ export type Cycle = {
   userId: number;
   startDate: string;
   endDate: string | null;
-  cycleDay: number;
   active: boolean;
+  currentDay: number;
 };
 
 export type MedicationStatus = {
-  shouldTakeMedicationToday: boolean;
-  medicationStartDate: string;
-  medicationEndDate: string;
-  nextMedicationDate?: string;
+  cycleId: number;
+  currentDay: number;
+  medicationStartDay: number;
+  medicationEndDay: number;
+  active: boolean;
+  taken: boolean;
 };

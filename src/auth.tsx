@@ -24,6 +24,7 @@ type AuthContextValue = {
     email: string,
     password: string,
   ) => Promise<boolean>;
+  logout: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -120,9 +121,17 @@ export function AuthProvider({ children }: PropsWithChildren) {
     }
   }
 
+  async function logout() {
+    await SecureStore.deleteItemAsync(TOKEN_KEY);
+    await SecureStore.deleteItemAsync(USER_KEY);
+    setToken(null);
+    setUser(null);
+    setError(null);
+  }
+
   return (
     <AuthContext.Provider
-      value={{ token, user, isLoading, error, login, register }}
+      value={{ token, user, isLoading, error, login, register, logout }}
     >
       {children}
     </AuthContext.Provider>
