@@ -18,6 +18,7 @@ type AuthContextValue = {
   user: User | null;
   isLoading: boolean;
   error: string | null;
+  clearError: () => void;
   login: (username: string, password: string) => Promise<boolean>;
   register: (
     username: string,
@@ -129,9 +130,22 @@ export function AuthProvider({ children }: PropsWithChildren) {
     setError(null);
   }
 
+  function clearError() {
+    setError((currentError) => (currentError === null ? currentError : null));
+  }
+
   return (
     <AuthContext.Provider
-      value={{ token, user, isLoading, error, login, register, logout }}
+      value={{
+        token,
+        user,
+        isLoading,
+        error,
+        clearError,
+        login,
+        register,
+        logout,
+      }}
     >
       {children}
     </AuthContext.Provider>

@@ -1,5 +1,5 @@
-import { Link, router } from "expo-router";
-import { useState } from "react";
+import { Link, Redirect, router } from "expo-router";
+import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Pressable,
@@ -12,9 +12,13 @@ import {
 import { useAuth } from "../src/auth";
 
 export default function LoginScreen() {
-  const { login, isLoading, error } = useAuth();
+  const { login, isLoading, error, clearError, user, token } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    clearError();
+  }, [clearError]);
 
   async function handleLogin() {
     const success = await login(username.trim(), password);
@@ -22,6 +26,10 @@ export default function LoginScreen() {
     if (success) {
       router.replace("/");
     }
+  }
+
+  if (user && token) {
+    return <Redirect href="/" />;
   }
 
   return (
