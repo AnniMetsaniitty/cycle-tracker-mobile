@@ -16,13 +16,14 @@ The purpose of this app is to help users track their menstrual cycle and medicat
 
 ---
 
-## Planned Features (v1)
+## Features (v1)
 
 - User registration
 - User login
 - Persistent login using secure storage
-- Today screen (current cycle and medication status)
-- History screen (previous cycles)
+- Today screen with current cycle details
+- Medication status and next medication date
+- History screen for previous cycles
 - Logout
 
 ---
@@ -34,6 +35,12 @@ The purpose of this app is to help users track their menstrual cycle and medicat
 ```bash
 npm install
 ```
+
+### Configure the API base URL
+
+Update the `API_BASE_URL` value in `src/api.ts` so it points to your backend server.
+
+If you run the app on a real device with Expo Go, use your computer's local network IP instead of `localhost`.
 
 ### Start the development server
 
@@ -52,10 +59,11 @@ npm run android
 
 ---
 
-## Project Structure (v1)
+## Project Structure
 
 ```
 app/
+  _layout.tsx
   index.tsx
   login.tsx
   register.tsx
@@ -73,15 +81,15 @@ src/
 ## Project Goal
 
 This project is part of my learning process in application development.
-The focus is on building a working mobile application step by step, starting with a simple and clean foundation.
+The v1 goal was to build a working mobile app with authentication, session persistence, a today view, and cycle history.
 
 ---
 
 ## Notes
 
-- The focus is on functionality first
-- Styling and advanced features will be added later
-- Additional features (notifications, charts, etc.) are out of scope for v1
+- v1 is complete
+- The current app depends on a separate backend API
+- v2 planning has started in `docs/PROJECT_PLAN_V2.md`
 
 ---
 
