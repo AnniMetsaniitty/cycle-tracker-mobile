@@ -82,3 +82,43 @@ The focus is on building a working mobile application step by step, starting wit
 - The focus is on functionality first
 - Styling and advanced features will be added later
 - Additional features (notifications, charts, etc.) are out of scope for v1
+
+---
+
+## Development Workflow
+
+This project uses a simple Git workflow built for feature-by-feature development.
+
+### Branches
+
+- `main` is the only long-lived branch
+- create a short-lived branch for each focused task
+- branch naming:
+  - `feature/<short-feature-name>`
+  - `fix/<short-bug-name>`
+  - `chore/<short-task-name>`
+
+Examples:
+
+- `feature/start-cycle`
+- `fix/session-restore`
+- `chore/update-readme`
+
+### Commit rules
+
+- keep commits small and focused
+- one commit should represent one logical change
+- use clear imperative messages
+
+Recommended commit message style:
+
+- `feat: add start cycle action`
+- `fix: handle missing auth token`
+- `docs: add git workflow`
+
+### Merge rule
+
+- merge back to `main` only when the branch is locally verified and the work is complete enough to keep `main` usable
+- squash merge is recommended for keeping `main` clean
+
+See [AGENT.md](AGENT.md) for the full repository workflow and commit guidance.
