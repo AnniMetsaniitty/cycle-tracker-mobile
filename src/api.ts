@@ -9,12 +9,14 @@ import type {
 const API_BASE_URL = "http://192.168.32.153:8080";
 
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
+  const { headers, ...restOptions } = options;
+
   const response = await fetch(`${API_BASE_URL}${path}`, {
+    ...restOptions,
     headers: {
       "Content-Type": "application/json",
-      ...options.headers,
+      ...headers,
     },
-    ...options,
   });
 
   if (!response.ok) {
