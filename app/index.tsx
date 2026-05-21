@@ -2,6 +2,7 @@ import { Link, Redirect, router } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  Alert,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -9,7 +10,12 @@ import {
   View,
 } from "react-native";
 
-import { getCurrentCycle, getMedicationStatus, startCycle } from "../src/api";
+import {
+  endCycle,
+  getCurrentCycle,
+  getMedicationStatus,
+  startCycle,
+} from "../src/api";
 import { useAuth } from "../src/auth";
 import type { Cycle, MedicationStatus } from "../src/types";
 import { buildNextMedicationText, formatDate } from "../src/utils";
@@ -23,6 +29,7 @@ export default function TodayScreen() {
   const [screenLoading, setScreenLoading] = useState(true);
   const [screenError, setScreenError] = useState<string | null>(null);
   const [startCycleLoading, setStartCycleLoading] = useState(false);
+  const [endCycleLoading, setEndCycleLoading] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null);
   const [feedbackTone, setFeedbackTone] = useState<"success" | "error" | null>(null);
 
@@ -72,8 +79,10 @@ export default function TodayScreen() {
     router.replace("/login");
   }
 
+  const hasActiveCycle = cycle?.active ?? false;
+
   async function handleStartCycle() {
-    if (!user || !token || startCycleLoading) {
+    if (!user || !token || startCycleLoading || endCycleLoading) {
       return;
     }
 
@@ -99,6 +108,59 @@ export default function TodayScreen() {
     }
   }
 
+  async function handleEndCycle() {
+    if (!user || !token || startCycleLoading || endCycleLoading || !hasActiveCycle) {
+      return;
+    }
+
+    setEndCycleLoading(true);
+    setFeedbackMessage(null);
+    setFeedbackTone(null);
+    setScreenError(null);
+
+    try {
+      const endedCycle = await endCycle(user.id, token);
+      await loadTodayData();
+      setFeedbackTone("success");
+      setFeedbackMessage(
+        `Cycle ended on ${formatDate(endedCycle.endDate ?? endedCycle.startDate)}.`,
+      );
+    } catch (endError) {
+      const message =
+        endError instanceof Error
+          ? endError.message
+          : "Could not end the active cycle.";
+      setFeedbackTone("error");
+      setFeedbackMessage(message);
+    } finally {
+      setEndCycleLoading(false);
+    }
+  }
+
+  function handleEndCyclePress() {
+    if (startCycleLoading || endCycleLoading || !hasActiveCycle) {
+      return;
+    }
+
+    Alert.alert(
+      "End active cycle?",
+      "This will mark the current cycle as ended today.",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "End Cycle",
+          style: "destructive",
+          onPress: () => {
+            void handleEndCycle();
+          },
+        },
+      ],
+    );
+  }
+
   if (!authLoading && (!user || !token)) {
     return <Redirect href="/login" />;
   }
@@ -121,7 +183,6 @@ export default function TodayScreen() {
       : "Not active"
     : "Unavailable";
   const nextMedicationText = buildNextMedicationText(cycle, medicationStatus);
-  const hasActiveCycle = cycle?.active ?? false;
 
   function renderCycleContent() {
     if (!hasActiveCycle) {
@@ -134,11 +195,13 @@ export default function TodayScreen() {
           </Text>
           <Pressable
             onPress={handleStartCycle}
-            disabled={startCycleLoading}
+            disabled={startCycleLoading || endCycleLoading}
             style={({ pressed }) => [
               styles.primaryButton,
-              startCycleLoading ? styles.buttonDisabled : null,
-              pressed && !startCycleLoading ? styles.buttonPressed : null,
+              startCycleLoading || endCycleLoading ? styles.buttonDisabled : null,
+              pressed && !startCycleLoading && !endCycleLoading
+                ? styles.buttonPressed
+                : null,
             ]}
           >
             {startCycleLoading ? (
@@ -188,6 +251,22 @@ export default function TodayScreen() {
             </View>
           ) : null}
         </View>
+
+        <Pressable
+          onPress={handleEndCyclePress}
+          disabled={endCycleLoading || startCycleLoading}
+          style={({ pressed }) => [
+            styles.endCycleButton,
+            endCycleLoading || startCycleLoading ? styles.buttonDisabled : null,
+            pressed && !endCycleLoading && !startCycleLoading ? styles.buttonPressed : null,
+          ]}
+        >
+          {endCycleLoading ? (
+            <ActivityIndicator size="small" color="#ffffff" />
+          ) : (
+            <Text style={styles.endCycleButtonText}>End Active Cycle</Text>
+          )}
+        </Pressable>
       </>
     );
   }
@@ -350,6 +429,19 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   primaryButtonText: {
+    color: "#ffffff",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  endCycleButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#dc2626",
+    borderRadius: 8,
+    paddingVertical: 12,
+    minHeight: 48,
+  },
+  endCycleButtonText: {
     color: "#ffffff",
     fontSize: 16,
     fontWeight: "600",
