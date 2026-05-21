@@ -8,6 +8,10 @@ export type AuthResponse = User & {
   accessToken: string;
 };
 
+export type StartCycleRequest = {
+  userId: number;
+};
+
 export type Cycle = {
   id: number;
   userId: number;

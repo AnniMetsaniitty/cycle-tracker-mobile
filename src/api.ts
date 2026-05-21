@@ -1,4 +1,9 @@
-import type { AuthResponse, Cycle, MedicationStatus } from "./types";
+import type {
+  AuthResponse,
+  Cycle,
+  MedicationStatus,
+  StartCycleRequest,
+} from "./types";
 
 // In Expo Go on a real phone, replace localhost with your computer's local IP.
 const API_BASE_URL = "http://192.168.32.153:8080";
@@ -78,6 +83,30 @@ export function getCycleHistory(
   token: string,
 ): Promise<Cycle[]> {
   return request<Cycle[]>(`/cycle/history/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+export function startCycle(
+  userId: number,
+  token: string,
+): Promise<Cycle> {
+  const payload: StartCycleRequest = { userId };
+
+  return request<Cycle>("/cycle/start", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(payload),
+  });
+}
+
+export function endCycle(userId: number, token: string): Promise<Cycle> {
+  return request<Cycle>(`/cycle/end/${userId}`, {
+    method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
     },
