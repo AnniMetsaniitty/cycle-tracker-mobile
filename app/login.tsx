@@ -86,14 +86,19 @@ const styles = StyleSheet.create({
     padding: 24,
     justifyContent: "center",
     gap: 12,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#ffe4f0",
   },
   title: {
+    fontFamily: "Montserrat",
     fontSize: 24,
-    fontWeight: "bold",
+    textTransform: "uppercase",
+    letterSpacing: -1,
+    // fontWeight: "bold",
   },
   description: {
     fontSize: 16,
+    fontFamily: "Inter",
+    letterSpacing: 0.5,
     color: "#444444",
     marginBottom: 8,
   },
@@ -104,11 +109,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 10,
     fontSize: 16,
+    fontFamily: "Inter",
+    letterSpacing: 0.5,
     backgroundColor: "#f8f8f8",
   },
   button: {
     alignItems: "center",
-    backgroundColor: "#2563eb",
+    backgroundColor: "#a63a79",
     borderRadius: 8,
     paddingVertical: 12,
   },
@@ -121,7 +128,9 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#ffffff",
     fontSize: 16,
-    fontWeight: "600",
+    // fontWeight: "600",
+    fontFamily: "Inter",
+    letterSpacing: 0.5,
   },
   errorText: {
     color: "#b00020",
@@ -129,8 +138,9 @@ const styles = StyleSheet.create({
   },
   link: {
     fontSize: 16,
+    fontFamily: "Inter",
     textDecorationLine: "underline",
-    color: "#2563eb",
+    color: "#2496cd",
     marginTop: 4,
   },
 });
