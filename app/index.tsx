@@ -394,17 +394,18 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: "Inter",
     fontSize: 16,
-    
+    textTransform: "capitalize",
     color: "#475569",
   },
   value: {
     flex: 1,
     fontFamily: "Inter",
     fontSize: 16,
-    fontWeight: "500",
+    fontWeight: "600",
+    letterSpacing: -0.5,
     textAlign: "right",
     textTransform: "capitalize",
-    color: " #0f172a",
+    color: "#0f172a",
   },
   errorText: {
     color: "#b00020",
@@ -459,6 +460,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 12,
     minHeight: 48,
+    marginTop: 8,
   },
   endCycleButtonText: {
     color: "#201431",
@@ -478,7 +480,7 @@ const styles = StyleSheet.create({
   logoutButtonText: {
     color: "#0f172a",
     fontSize: 16,
-    fontFamily: "Inter",    
+    fontFamily: "Inter",
     letterSpacing: 0.5,
   },
   buttonPressed: {
