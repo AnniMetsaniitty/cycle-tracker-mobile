@@ -125,9 +125,9 @@ export default function HistoryScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>History</Text>
+      <Text style={styles.title}>Cycle History</Text>
       <Text style={styles.description}>
-        Review your previous cycles from newest to oldest.
+        Review your previous menstrual cycles from newest to oldest.
       </Text>
 
       {renderContent()}
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 24,
     gap: 12,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#FFF9FC",
   },
   centeredContainer: {
     flex: 1,
@@ -162,29 +162,34 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontFamily: "Monserrat",
+    textTransform: "capitalize",
+    letterSpacing: -1,
+    color: "#0f172a",
   },
   description: {
     fontSize: 16,
-    color: "#444444",
+    color: "#0f172a",
     marginBottom: 8,
   },
   loadingText: {
     fontSize: 16,
-    color: "#444444",
+    color: "#0f172a",
   },
   messageCard: {
-    backgroundColor: "#f8fafc",
+    backgroundColor: "#ffe4f0",
     borderWidth: 1,
-    borderColor: "#e2e8f0",
+    borderColor: "#55042A",
     borderRadius: 12,
     padding: 16,
-    gap: 8,
+    gap: 10,
   },
   messageTitle: {
-    fontSize: 18,
-    fontWeight: "600",
+    fontSize: 20,
+    fontFamily: "Monserrat",
+    fontWeight: "bold",
     color: "#0f172a",
+    textTransform: "capitalize",
   },
   messageText: {
     fontSize: 15,
@@ -192,17 +197,20 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   card: {
-    backgroundColor: "#f8fafc",
+    backgroundColor: "#ffe4f0",
     borderWidth: 1,
-    borderColor: "#e2e8f0",
+    borderColor: "#55042A",
     borderRadius: 12,
     padding: 16,
     gap: 12,
   },
   cardTitle: {
     fontSize: 18,
-    fontWeight: "600",
+    fontFamily: "Montserrat",
+    fontWeight: "bold",
+    letterSpacing: 0.5,
     color: "#0f172a",
+    textTransform: "capitalize",
   },
   row: {
     flexDirection: "row",
@@ -212,13 +220,18 @@ const styles = StyleSheet.create({
   },
   label: {
     flex: 1,
+    fontFamily: "Inter",
     fontSize: 16,
+    textTransform: "capitalize",
     color: "#475569",
   },
   value: {
     flex: 1,
+    fontFamily: "Inter",
     fontSize: 16,
-    fontWeight: "500",
+    fontWeight: "600",
+    letterSpacing: 0.5,
+    textTransform: "capitalize",
     textAlign: "right",
     color: "#0f172a",
   },
