@@ -125,7 +125,7 @@ export default function HistoryScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Cycle History</Text>
+      <Text style={styles.title}>Cycle History 𓇢𓆸</Text>
       <Text style={styles.description}>
         Review your previous menstrual cycles from newest to oldest.
       </Text>

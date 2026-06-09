@@ -188,11 +188,13 @@ export default function TodayScreen() {
     if (!hasActiveCycle) {
       return (
         <View style={styles.messageCard}>
-          <Text style={styles.messageTitle}>No active cycle right now</Text>
-          <Text style={styles.messageText}>
-            Start a new cycle when today is the first day. The app will use today&apos;s
-            date automatically.
+          <Text style={styles.messageTitle}> No Active Cycle </Text>
+           <Text style={styles.messageText}>
+            🌸 It looks like you don&apos;t have an active cycle right now.
           </Text>
+          <Text style={styles.messageText}>
+            🩸 Start a new cycle when it is the first day of your cycle ⤵︎
+            </Text>
           <Pressable
             onPress={handleStartCycle}
             disabled={startCycleLoading || endCycleLoading}
@@ -273,9 +275,15 @@ export default function TodayScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Today Screen</Text>
+      <Text style={styles.title}>Hello, {user?.username ?? "Unknown user"}! ✌︎㋡</Text>
       <Text style={styles.description}>
-        Signed in as {user?.username ?? "Unknown user"}
+         📅 CycleTracker will automatically track your cycle from the start day, no need to manually enter dates. #Swag
+      </Text>
+      <Text style={styles.description}>
+        ✔ Every day, check the Today screen to see your current cycle day and when to take your medication. #Convenience
+      </Text>
+      <Text style={styles.description}>
+        🗄️ Your cycle history will be saved and visible on the History screen, so you can keep track of your cycles over time. #History
       </Text>
 
       {screenError ? <Text style={styles.errorText}>{screenError}</Text> : null}
@@ -306,7 +314,7 @@ export default function TodayScreen() {
           pressed ? styles.buttonPressed : null,
         ]}
       >
-        <Text style={styles.logoutButtonText}>Log Out</Text>
+        <Text style={styles.logoutButtonText}>➜] Log Out</Text>
       </Pressable>
 
       <Link href="/history" style={styles.link}>
@@ -334,7 +342,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "Montserrat",
     fontSize: 24,
-    textTransform: "uppercase",
+    textTransform: "capitalize",
     letterSpacing: -1,
     // fontWeight: "bold",
   },
@@ -445,6 +453,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     minHeight: 48,
     marginTop: 4,
+    marginBottom: 12,
   },
   primaryButtonText: {
     color: "#201431",
